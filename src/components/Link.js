@@ -29,17 +29,20 @@ class Link extends Component {
         return(
             <div className="flex mt2 items-start">
                 <div className="flex items-center">
-                    <Mutation mutation={VOTE_MUTATION} 
-                    variables={{ linkId: this.props.link.id }} 
-                    update={(store, { data: { vote } }) => 
-                        this.props.updateStoreAfterVote(store, vote, this.props.link.id)
-                    }>
-                        {voteMutation => (
-                            <div className="ml1 gray fl1" onClick={voteMutation}>
-                                ★
-                            </div>
-                        )}
-                    </Mutation>
+                    {authToken && (
+                        <Mutation mutation={VOTE_MUTATION} 
+                            variables={{ linkId: this.props.link.id }} 
+                            update={(store, { data: { vote } }) => 
+                                this.props.updateStoreAfterVote(store, vote, this.props.link.id)
+                            }
+                        >
+                            {voteMutation => (
+                                <div className="ml1 gray fl1" onClick={voteMutation}>
+                                    ★
+                                </div>
+                            )}
+                        </Mutation>
+                    )}
                 </div>
                 <div className="ml1">
                     <div>
